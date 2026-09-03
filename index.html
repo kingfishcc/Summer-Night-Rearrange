@@ -240,7 +240,7 @@
         <header class="text-center mb-10 mt-6">
             <div class="inline-block p-1 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 mb-4">
                 <div class="bg-white rounded-full px-6 py-2">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-bold tracking-wide uppercase text-sm font-sans">現代詩選讀</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-bold tracking-wide uppercase text-sm font-sans">Classical Chinese Literature</span>
                 </div>
             </div>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2 leading-snug tracking-tight">
@@ -343,7 +343,25 @@
 
             // 夏夜課文讀音修正
             speechText = speechText.replace(/和/g, '汗'); // 修正「和」的讀音為 ㄏㄢˋ
+            speechText = speechText.replace(/著/g, '哲'); // 修正「著」的讀音為 ˙ㄓㄜ (用「哲」模擬)
             
+            // 修正「地」的讀音為 ˙ㄉ一 (用「的」替代，多數語音引擎會念輕聲)
+            speechText = speechText.replace(/輕輕地/g, '輕輕的');
+            speechText = speechText.replace(/靜靜地/g, '靜靜的');
+            speechText = speechText.replace(/忽東忽西地/g, '忽東忽西的');
+            speechText = speechText.replace(/朦朧地/g, '朦朧的');
+            speechText = speechText.replace(/愉快地/g, '愉快的');
+            speechText = speechText.replace(/低聲地/g, '低聲的'); // 補上第五段的低聲地
+
+            // 修正疊字輕聲 (用輕聲注音或相似音模擬，視語音引擎而定，通常拆開念能改善)
+            // 這裡嘗試直接用注音符號，部分引擎支援。若不支援，可改為空一格例如 '小弟 弟'
+            speechText = speechText.replace(/小弟弟/g, '小弟˙ㄉ一');
+            speechText = speechText.replace(/小妹妹/g, '小妹˙ㄇㄟ');
+            
+            // 第一段 ② 特殊讀音
+            speechText = speechText.replace(/椰子/g, '爺子'); // 椰 ㄧㄝˊ
+            speechText = speechText.replace(/撒了/g, '灑了'); // 撒 ㄙㄚˇ
+
             const utterThis = new SpeechSynthesisUtterance(speechText);
             utterThis.lang = lang;
             utterThis.rate = rate; // 放慢語速讓新詩更有感覺
