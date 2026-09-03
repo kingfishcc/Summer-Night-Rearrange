@@ -330,41 +330,137 @@
         const totalCount = exercises.length;
         const synth = window.speechSynthesis;
 
+        // --- AI TTS Utilities (高階語音處理工具) ---
+        const audioCache = new Map();
+        
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const byteRate = sampleRate * numChannels * 2;
+            const blockAlign = numChannels * 2;
+            const buffer = new ArrayBuffer(44 + pcm16.byteLength);
+            const view = new DataView(buffer);
+
+            // RIFF chunk descriptor
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16.byteLength, true);
+            writeString(view, 8, 'WAVE');
+
+            // fmt sub-chunk
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); 
+            view.setUint16(20, 1, true); 
+            view.setUint16(22, numChannels, true); 
+            view.setUint32(24, sampleRate, true); 
+            view.setUint32(28, byteRate, true); 
+            view.setUint16(32, blockAlign, true); 
+            view.setUint16(34, 16, true); 
+
+            // data sub-chunk
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16.byteLength, true);
+
+            // Write PCM samples
+            let offset = 44;
+            for (let i = 0; i < pcm16.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16[i], true);
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
         // --- FUNCTIONS ---
-
-        function speak(text, lang = 'zh-TW', rate = 0.90) {
-            // 🛡️ 語音引擎相容性與空字串防護
+        
+        // 舊的瀏覽器內建 TTS (作為網路不通時的備用)
+        function fallbackSpeak(text, lang = 'zh-TW', rate = 0.90) {
             if (!text || !synth) return; 
-            
             synth.cancel();
-
-            // 針對語音進行修正
-            let speechText = text;
-
-            // 夏夜課文讀音修正
-            speechText = speechText.replace(/和/g, '汗'); // 修正「和」的讀音為 ㄏㄢˋ
-            speechText = speechText.replace(/著/g, '哲'); // 修正「著」的讀音為 ˙ㄓㄜ (用「哲」模擬)
-            
-            // 修正「地」的讀音為 ˙ㄉ一 (使用同音字「滴」避免引擎念出注音)
-            speechText = speechText.replace(/輕輕地/g, '輕輕滴');
-            speechText = speechText.replace(/靜靜地/g, '靜靜滴');
-            speechText = speechText.replace(/忽東忽西地/g, '忽東忽西滴');
-            speechText = speechText.replace(/朦朧地/g, '朦朧滴');
-            speechText = speechText.replace(/愉快地/g, '愉快滴');
-            speechText = speechText.replace(/低聲地/g, '低聲滴'); 
-
-            // 修正疊字輕聲 (避免使用注音符號)
-            speechText = speechText.replace(/小弟弟/g, '小弟滴');
-            speechText = speechText.replace(/小妹妹/g, '小妹沒');
-            
-            // 第一段 ② 特殊讀音
-            speechText = speechText.replace(/椰子/g, '爺子'); // 椰 ㄧㄝˊ
-            speechText = speechText.replace(/撒了/g, '灑了'); // 撒 ㄙㄚˇ
-
-            const utterThis = new SpeechSynthesisUtterance(speechText);
+            const utterThis = new SpeechSynthesisUtterance(text);
             utterThis.lang = lang;
-            utterThis.rate = rate; // 放慢語速讓新詩更有感覺
+            utterThis.rate = rate; 
             synth.speak(utterThis);
+        }
+
+        // 使用高階 AI 語音引擎 (Gemini TTS)
+        async function speak(text, lang = 'zh-TW', rate = 0.90) {
+            if (!text) return;
+
+            // 檢查是否已經有快取的音檔，避免重複請求 API，提升流暢度
+            if (audioCache.has(text)) {
+                const audio = new Audio(audioCache.get(text));
+                audio.play();
+                return;
+            }
+
+            try {
+                // 為了讓語音更自然，加上上下文提示，讓 AI 知道這是現代詩，自動判斷輕聲與破音字
+                const promptText = "請用溫柔、自然的語氣，朗讀以下現代詩片段：" + text;
+                
+                const payload = {
+                    contents: [{
+                        parts: [{ text: promptText }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Aoede" } // 使用溫柔輕快的聲音
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+                
+                const apiKey = ""; // 系統會自動帶入 API Key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const match = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = match ? parseInt(match[1], 10) : 24000;
+                    
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    // 存入快取
+                    audioCache.set(text, audioUrl);
+                    
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                } else {
+                    throw new Error("Invalid audio response");
+                }
+            } catch (error) {
+                console.warn("AI TTS 發生錯誤，退回使用內建語音", error);
+                fallbackSpeak(text, lang, rate);
+            }
         }
 
         function renderApp() {
