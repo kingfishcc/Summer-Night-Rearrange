@@ -289,9 +289,9 @@
             {
                 id: 'q2',
                 label: '第一段 ②',
-                answer: '來了！來了！從山坡上輕輕地爬下來了。從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
-                ttsText: '來了！來了！從山坡上輕輕地爬下來了。從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
-                chunks: ['來了！來了！', '從山坡上', '輕輕地爬下來了。', '從椰子樹梢上', '輕輕地爬下來了。', '撒了滿天的珍珠', '和一枚又大又亮的銀幣。']
+                answer: '來了！來了！從山坡上輕輕地爬下來了。來了！來了！從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
+                ttsText: '來了！來了！從山坡上輕輕地爬下來了。來了！來了！從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
+                chunks: ['來了！來了！', '從山坡上', '輕輕地爬下來了。', '來了！來了！', '從椰子樹梢上', '輕輕地爬下來了。', '撒了滿天的珍珠', '和一枚又大又亮的銀幣。']
             },
             {
                 id: 'q3',
@@ -345,18 +345,17 @@
             speechText = speechText.replace(/和/g, '汗'); // 修正「和」的讀音為 ㄏㄢˋ
             speechText = speechText.replace(/著/g, '哲'); // 修正「著」的讀音為 ˙ㄓㄜ (用「哲」模擬)
             
-            // 修正「地」的讀音為 ˙ㄉ一 (用「的」替代，多數語音引擎會念輕聲)
-            speechText = speechText.replace(/輕輕地/g, '輕輕的');
-            speechText = speechText.replace(/靜靜地/g, '靜靜的');
-            speechText = speechText.replace(/忽東忽西地/g, '忽東忽西的');
-            speechText = speechText.replace(/朦朧地/g, '朦朧的');
-            speechText = speechText.replace(/愉快地/g, '愉快的');
-            speechText = speechText.replace(/低聲地/g, '低聲的'); // 補上第五段的低聲地
+            // 修正「地」的讀音為 ˙ㄉ一 (使用同音字「滴」避免引擎念出注音)
+            speechText = speechText.replace(/輕輕地/g, '輕輕滴');
+            speechText = speechText.replace(/靜靜地/g, '靜靜滴');
+            speechText = speechText.replace(/忽東忽西地/g, '忽東忽西滴');
+            speechText = speechText.replace(/朦朧地/g, '朦朧滴');
+            speechText = speechText.replace(/愉快地/g, '愉快滴');
+            speechText = speechText.replace(/低聲地/g, '低聲滴'); 
 
-            // 修正疊字輕聲 (用輕聲注音或相似音模擬，視語音引擎而定，通常拆開念能改善)
-            // 這裡嘗試直接用注音符號，部分引擎支援。若不支援，可改為空一格例如 '小弟 弟'
-            speechText = speechText.replace(/小弟弟/g, '小弟˙ㄉ一');
-            speechText = speechText.replace(/小妹妹/g, '小妹˙ㄇㄟ');
+            // 修正疊字輕聲 (避免使用注音符號)
+            speechText = speechText.replace(/小弟弟/g, '小弟滴');
+            speechText = speechText.replace(/小妹妹/g, '小妹沒');
             
             // 第一段 ② 特殊讀音
             speechText = speechText.replace(/椰子/g, '爺子'); // 椰 ㄧㄝˊ
