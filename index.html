@@ -22,14 +22,12 @@
             --success-color: #10b981; /* Emerald 500 */
             --error-color: #ef4444; /* Red 500 */
             
-            /* 👇 關鍵修改在這裡：字體順序設定 👇 */
-            /* 瀏覽器會從左讀到右：源泉圓體優先 -> Chiron GoRound TC 備用 -> 最後用微軟正黑體或系統預設 */
+            /* 字體順序設定 */
             --main-font: 'GenSenRounded TW', 'Chiron GoRound TC', 'Microsoft JhengHei', sans-serif;
         }
 
         body {
             font-family: var(--main-font);
-            /* 👇 加上 Google Fonts 視覺微調屬性 👇 */
             font-optical-sizing: auto;
             
             background-color: #f0fdf4;
@@ -215,7 +213,6 @@
         }
     </style>
 </head>
-<!-- 加入 oncontextmenu="return false;" 禁止右鍵選單 -->
 <body class="min-h-screen p-4 pb-12" oncontextmenu="return false;">
 
     <!-- Completion Overlay -->
@@ -240,7 +237,7 @@
         <header class="text-center mb-10 mt-6">
             <div class="inline-block p-1 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 mb-4">
                 <div class="bg-white rounded-full px-6 py-2">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-bold tracking-wide uppercase text-sm font-sans">Classical Chinese Literature</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-bold tracking-wide text-sm font-sans">Classical Chinese Literature</span>
                 </div>
             </div>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2 leading-snug tracking-tight">
@@ -283,94 +280,104 @@
                 id: 'q1',
                 label: '第一段 ①',
                 answer: '蝴蝶和蜜蜂們帶著花朵的蜜糖回來了，羊隊和牛群告別了田野回家了，火紅的太陽也滾著火輪子回家了，當街燈亮起來向村莊道過晚安，夏天的夜就輕輕地來了。',
-                ttsText: '蝴蝶和蜜蜂們帶著花朵的蜜糖回來了，羊隊和牛群告別了田野回家了，火紅的太陽也滾著火輪子回家了，當街燈亮起來向村莊道過晚安，夏天的夜就輕輕地來了。',
                 chunks: ['蝴蝶和蜜蜂們', '帶著花朵的蜜糖回來了，', '羊隊和牛群', '告別了田野回家了，', '火紅的太陽', '也滾著火輪子回家了，', '當街燈亮起來', '向村莊道過晚安，', '夏天的夜就輕輕地來了。']
             },
             {
                 id: 'q2',
                 label: '第一段 ②',
-                answer: '來了！來了！從山坡上輕輕地爬下來了。來了！來了！從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
-                ttsText: '來了！來了！從山坡上輕輕地爬下來了。來了！來了！從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
-                chunks: ['來了！來了！', '從山坡上', '輕輕地爬下來了。', '來了！來了！', '從椰子樹梢上', '輕輕地爬下來了。', '撒了滿天的珍珠', '和一枚又大又亮的銀幣。']
+                answer: '來了！來了！從山坡上輕輕地爬下來了。從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
+                chunks: ['來了！來了！', '從山坡上', '輕輕地爬下來了。', '從椰子樹梢上', '輕輕地爬下來了。', '撒了滿天的珍珠', '和一枚又大又亮的銀幣。']
             },
             {
                 id: 'q3',
                 label: '第二段 ①',
                 answer: '美麗的夏夜呀！涼爽的夏夜呀！小雞和小鴨們關在欄裡睡了。聽完了老祖母的故事，小弟弟和小妹妹也闔上眼睛走向夢鄉了。',
-                ttsText: '美麗的夏夜呀！涼爽的夏夜呀！小雞和小鴨們關在欄裡睡了。聽完了老祖母的故事，小弟弟和小妹妹也闔上眼睛走向夢鄉了。',
                 chunks: ['美麗的夏夜呀！', '涼爽的夏夜呀！', '小雞和小鴨們', '關在欄裡睡了。', '聽完了老祖母的故事，', '小弟弟和小妹妹', '也闔上眼睛走向夢鄉了。']
             },
             {
                 id: 'q4',
                 label: '第二段 ②',
                 answer: '（小妹妹夢見她變做蝴蝶在大花園裡忽東忽西地飛，小弟弟夢見他變做一條魚在藍色的大海裡游水。）朦朧地，山巒靜靜地睡了！朦朧地，田野靜靜地睡了！',
-                ttsText: '（小妹妹夢見她變做蝴蝶在大花園裡忽東忽西地飛，小弟弟夢見他變做一條魚在藍色的大海裡游水。）朦朧地，山巒靜靜地睡了！朦朧地，田野靜靜地睡了！',
                 chunks: ['（小妹妹夢見她變做蝴蝶', '在大花園裡忽東忽西地飛，', '小弟弟夢見他變做一條魚', '在藍色的大海裡游水。）', '朦朧地，', '山巒靜靜地睡了！', '朦朧地，', '田野靜靜地睡了！']
             },
             {
                 id: 'q5',
                 label: '第二段 ③',
                 answer: '只有窗外瓜架上的南瓜還醒著，伸長了藤蔓輕輕地往屋頂上爬。只有綠色的小河還醒著，低聲地歌唱著溜過彎彎的小橋。',
-                ttsText: '只有窗外瓜架上的南瓜還醒著，伸長了藤蔓輕輕地往屋頂上爬。只有綠色的小河還醒著，低聲地歌唱著溜過彎彎的小橋。',
                 chunks: ['只有窗外瓜架上的南瓜還醒著，', '伸長了藤蔓', '輕輕地往屋頂上爬。', '只有綠色的小河還醒著，', '低聲地歌唱著', '溜過彎彎的小橋。']
             },
             {
                 id: 'q6',
                 label: '第二段 ④',
                 answer: '只有夜風還醒著，從竹林裡跑出來，跟著提燈的螢火蟲，在美麗的夏夜裡愉快地旅行。',
-                ttsText: '只有夜風還醒著，從竹林裡跑出來，跟著提燈的螢火蟲，在美麗的夏夜裡愉快地旅行。',
                 chunks: ['只有夜風還醒著，', '從竹林裡跑出來，', '跟著提燈的螢火蟲，', '在美麗的夏夜裡愉快地旅行。']
             }
         ];
 
-        // 用於判斷目前是否正在拖曳，防止放開滑鼠/手指時誤觸點擊事件
         window.isDraggingItem = false;
-        
         let completedCount = 0;
         const totalCount = exercises.length;
         const synth = window.speechSynthesis;
+        
+        // 預先載入語音庫以確保能抓到高階語音
+        let availableVoices = [];
+        function loadVoices() {
+            availableVoices = synth.getVoices();
+        }
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
 
         // --- FUNCTIONS ---
 
         function speak(text, lang = 'zh-TW', rate = 0.90) {
-            // 🛡️ 語音引擎相容性與空字串防護
             if (!text || !synth) return; 
             
             synth.cancel();
 
-            // 針對語音進行修正
             let speechText = text;
 
-            // 夏夜課文讀音修正
-            speechText = speechText.replace(/和/g, '汗'); // 修正「和」的讀音為 ㄏㄢˋ
-            speechText = speechText.replace(/著/g, '哲'); // 修正「著」的讀音為 ˙ㄓㄜ (用「哲」模擬)
-            
-            // 修正「地」的讀音為 ˙ㄉ一 (使用同音字「滴」避免引擎念出注音)
-            speechText = speechText.replace(/輕輕地/g, '輕輕滴');
-            speechText = speechText.replace(/靜靜地/g, '靜靜滴');
-            speechText = speechText.replace(/忽東忽西地/g, '忽東忽西滴');
-            speechText = speechText.replace(/朦朧地/g, '朦朧滴');
-            speechText = speechText.replace(/愉快地/g, '愉快滴');
-            speechText = speechText.replace(/低聲地/g, '低聲滴'); 
+            // ===== 語音破音字替換邏輯 =====
+            speechText = speechText.replace(/和/g, '汗');
+            speechText = speechText.replace(/著/g, '哲');
+            speechText = speechText.replace(/椰子/g, '爺子');
+            speechText = speechText.replace(/撒了/g, '灑了');
 
-            // 修正疊字輕聲 (避免使用注音符號)
-            speechText = speechText.replace(/小弟弟/g, '小弟滴');
-            speechText = speechText.replace(/小妹妹/g, '小妹沒');
+            // ===== 聲學降調技巧 (利用替換字模擬輕聲) =====
+            speechText = speechText.replace(/小弟弟/g, '小弟底');
+            speechText = speechText.replace(/小妹妹/g, '小妹每');
             
-            // 第一段 ② 特殊讀音
-            speechText = speechText.replace(/椰子/g, '爺子'); // 椰 ㄧㄝˊ
-            speechText = speechText.replace(/撒了/g, '灑了'); // 撒 ㄙㄚˇ
-
+            // 替換為「的」發出標準「˙ㄉㄜ」輕聲
+            speechText = speechText.replace(/輕輕地/g, '輕輕的');
+            speechText = speechText.replace(/靜靜地/g, '靜靜的');
+            speechText = speechText.replace(/忽東忽西地/g, '忽東忽西的');
+            speechText = speechText.replace(/朦朧地/g, '朦朧的');
+            speechText = speechText.replace(/愉快地/g, '愉快的');
+            speechText = speechText.replace(/低聲地/g, '低聲的');
+            
             const utterThis = new SpeechSynthesisUtterance(speechText);
             utterThis.lang = lang;
-            utterThis.rate = rate; // 放慢語速讓新詩更有感覺
+            utterThis.rate = rate; 
+
+            // ===== 高階語音引擎自動挑選 =====
+            if (availableVoices.length === 0) availableVoices = synth.getVoices();
+            
+            // 尋找具備 AI 處理能力的 Google 或 Microsoft 網路語音
+            const premiumVoice = availableVoices.find(v => 
+                (v.lang === 'zh-TW' || v.lang === 'cmn-TW') && 
+                (v.name.includes('Google') || v.name.includes('Online') || v.name.includes('Premium') || v.name.includes('Xiaoxiao') || v.name.includes('Yating'))
+            );
+            
+            if (premiumVoice) {
+                utterThis.voice = premiumVoice;
+            }
+
             synth.speak(utterThis);
         }
 
         function renderApp() {
             const container = document.getElementById('container-exercises');
-            
-            // 更新進度條初始文字
             document.getElementById('progress-text').textContent = `完成進度：0/${totalCount}`;
 
             exercises.forEach((ex) => {
@@ -399,7 +406,7 @@
                     <div class="flex flex-wrap items-center gap-3 mt-2">
                         <button class="btn-action check-btn bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-xl shadow-md border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 transition-all text-lg flex-grow sm:flex-grow-0" data-id="${ex.id}">檢查答案</button>
                         <button class="btn-action reset-btn bg-white hover:bg-gray-50 text-gray-600 border-2 border-gray-300 border-b-4 font-bold py-3 px-6 rounded-xl active:border-b-2 active:translate-y-1 transition-all text-lg" data-id="${ex.id}">重置</button>
-                        <button class="btn-action hint-btn bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-3 px-6 rounded-xl border-b-4 border-amber-300 active:border-b-0 active:translate-y-1 transition-all flex items-center gap-2 text-lg ml-auto" data-text="${ex.ttsText.replace(/"/g, '&quot;')}">
+                        <button class="btn-action hint-btn bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-3 px-6 rounded-xl border-b-4 border-amber-300 active:border-b-0 active:translate-y-1 transition-all flex items-center gap-2 text-lg ml-auto" data-text="${ex.answer.replace(/"/g, '&quot;')}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>
                             聽解答
                         </button>
@@ -409,37 +416,29 @@
 
                 container.appendChild(card);
 
-                // 畫面渲染完成後，為每一個「作答區」初始化拖曳排序功能 (SortableJS)
                 const zone = document.getElementById(`zone-${ex.id}`);
                 
                 new Sortable(zone, {
-                    animation: 150,           // 拖曳時的動畫效果速度
-                    ghostClass: 'sortable-ghost', // 拖曳時下方佔位符的 CSS class
-                    dragClass: 'sortable-drag',   // 正在被拖曳元素的 CSS class
-                    delay: 150,               // 觸控裝置需長按 150 毫秒才能拖曳 (防止誤觸與干擾滑動)
-                    delayOnTouchOnly: true,   // 滑鼠可直接拖曳，僅觸控裝置需要延遲
+                    animation: 150,
+                    ghostClass: 'sortable-ghost',
+                    dragClass: 'sortable-drag',
+                    delay: 150,
+                    delayOnTouchOnly: true,
 
-                    // 開始拖曳時的事件
                     onStart: function (evt) {
-                        // 標記全域變數為拖曳中，這樣就能有效防止放開時觸發 click 事件
                         window.isDraggingItem = true;
                     },
                     
-                    // 結束拖曳時的事件
                     onEnd: function (evt) {
-                        // 清除視覺狀態、準備重新檢查等
                         const feedbackEl = card.querySelector('.feedback');
                         feedbackEl.textContent = '';
                         zone.classList.remove('correct', 'incorrect');
                         
-                        // 如果這題原本已經答對，但現在被拖曳改變了順序，就要取消它的完成狀態並扣除進度
                         if (zone.dataset.completed) {
                             delete zone.dataset.completed;
                             updateProgress(-1);
                         }
 
-                        // 🛡️ 拖曳狀態卡死防護：
-                        // 稍微延遲解除拖曳狀態 (100毫秒)。
                         setTimeout(() => { 
                             window.isDraggingItem = false; 
                         }, 100);
@@ -452,9 +451,7 @@
         document.body.addEventListener('click', (e) => {
             const target = e.target;
 
-            // 1. Word Item Click (Chinese blocks)
             if (target.classList.contains('word-item')) {
-                // 🛡️ 拖曳防誤觸判斷：如果系統判定目前正在拖曳中，則取消點擊動作
                 if (window.isDraggingItem) return;
 
                 const card = target.closest('.exercise-card');
@@ -463,7 +460,6 @@
                 const bank = document.getElementById(`bank-${exId}`);
                 const zone = document.getElementById(`zone-${exId}`);
 
-                // Speak in Chinese
                 speak(target.innerText, 'zh-TW', 1.0);
 
                 if (target.parentElement === bank) {
@@ -472,12 +468,10 @@
                     bank.appendChild(target);
                 }
 
-                // Reset state
                 const feedbackEl = card.querySelector('.feedback');
                 feedbackEl.textContent = '';
                 zone.classList.remove('correct', 'incorrect');
 
-                // 如果這題原本已經答對，但現在被移動了任何一塊，就要取消它的完成狀態並扣除進度
                 if (zone.dataset.completed) {
                     delete zone.dataset.completed;
                     updateProgress(-1);
@@ -486,21 +480,18 @@
                 return;
             }
 
-            // 2. Check Button
             if (target.classList.contains('check-btn')) {
                 const id = target.dataset.id;
                 checkAnswer(id);
                 return;
             }
 
-            // 3. Reset Button
             if (target.classList.contains('reset-btn')) {
                 const id = target.dataset.id;
                 resetQuestion(id);
                 return;
             }
 
-            // 4. Hint Button (Listen to Answer)
             if (target.closest('.hint-btn')) {
                 const btn = target.closest('.hint-btn');
                 const text = btn.dataset.text;
@@ -557,7 +548,6 @@
             
             const rawWords = Array.from(zone.children).map(el => el.innerText);
             
-            // Join without spaces for Chinese sentence comparison
             let userSentence = rawWords.join('');
             let correctAnswer = exData.answer;
 
@@ -623,7 +613,6 @@
             }
         }
 
-        // Init
         renderApp();
 
     </script>
