@@ -334,10 +334,13 @@
 
             // ===== 語音破音字與輕聲替換邏輯 =====
             
-            // 1. 「著」改為 ˙ㄓㄜ (用「哲」模擬)
+            // 1. 「和」改為 ㄏㄢˋ (用「汗」模擬)
+            speechText = speechText.replace(/和/g, '汗');
+            
+            // 2. 「著」改為 ˙ㄓㄜ (用「哲」模擬)
             speechText = speechText.replace(/著/g, '哲');
             
-            // 2. 「椰子」與「撒了」
+            // 3. 「椰子」與「撒了」
             speechText = speechText.replace(/椰子/g, '爺子');
             speechText = speechText.replace(/撒了/g, '灑了');
 
