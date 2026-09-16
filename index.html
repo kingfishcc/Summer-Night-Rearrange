@@ -285,8 +285,8 @@
             {
                 id: 'q2',
                 label: '第一段 ②',
-                answer: '來了！來了！從山坡上輕輕地爬下來了。從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
-                chunks: ['來了！來了！', '從山坡上', '輕輕地爬下來了。', '從椰子樹梢上', '輕輕地爬下來了。', '撒了滿天的珍珠', '和一枚又大又亮的銀幣。']
+                answer: '來了！來了！從山坡上輕輕地爬下來了。來了！來了！從椰子樹梢上輕輕地爬下來了。撒了滿天的珍珠和一枚又大又亮的銀幣。',
+                chunks: ['來了！來了！', '從山坡上', '輕輕地爬下來了。', '來了！來了！', '從椰子樹梢上', '輕輕地爬下來了。', '撒了滿天的珍珠', '和一枚又大又亮的銀幣。']
             },
             {
                 id: 'q3',
@@ -331,7 +331,8 @@
 
         // --- FUNCTIONS ---
 
-        function speak(text, lang = 'zh-TW', rate = 0.90) {
+        // 預設語速調整為 0.7
+        function speak(text, lang = 'zh-TW', rate = 0.7) {
             if (!text || !synth) return; 
             
             synth.cancel();
@@ -460,7 +461,8 @@
                 const bank = document.getElementById(`bank-${exId}`);
                 const zone = document.getElementById(`zone-${exId}`);
 
-                speak(target.innerText, 'zh-TW', 1.0);
+                // 語速設定為 0.7
+                speak(target.innerText, 'zh-TW', 0.7);
 
                 if (target.parentElement === bank) {
                     zone.appendChild(target);
@@ -495,7 +497,8 @@
             if (target.closest('.hint-btn')) {
                 const btn = target.closest('.hint-btn');
                 const text = btn.dataset.text;
-                speak(text, 'zh-TW', 0.85);
+                // 語速設定為 0.7
+                speak(text, 'zh-TW', 0.7);
                 return;
             }
         });
